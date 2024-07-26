@@ -7,6 +7,9 @@ app = Flask(__name__) # name of the module, flask knows where too look for files
 CORS(app)
 
 app.config['SECRET_KEY'] = 'dgwrF*5USdWAGr4EqFPqYK'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+db = SQLAlchemy(app)
+
 
 posts =[
     {
@@ -46,9 +49,15 @@ def register():
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
 
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'admin@blog.com' and form.password.data == 'password':
+            flash('You have logged in!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Incorrect Login information', 'danger')
     return render_template('login.html', title='Login', form=form)
 
 
