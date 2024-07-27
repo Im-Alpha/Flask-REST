@@ -1,7 +1,7 @@
 from datetime import datetime
-from flaskBlog import app, db
-app.app_context().push()
-db.create_all()
+from flaskBlog import db
+#app.app_context().push()
+#db.create_all()
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)

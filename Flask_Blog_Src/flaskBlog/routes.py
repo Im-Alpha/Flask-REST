@@ -1,15 +1,8 @@
-from flask import Flask, render_template, jsonify, url_for, flash, redirect
-from forms import RegistrationForm, LoginForm
-from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
-
-app = Flask(__name__) # name of the module, flask knows where too look for files
-CORS(app)
-
-app.config['SECRET_KEY'] = 'dgwrF*5USdWAGr4EqFPqYK'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-db = SQLAlchemy(app)
-
+from flask import render_template, jsonify, url_for, flash, redirect
+from flaskBlog import app
+from flaskBlog.forms import RegistrationForm, LoginForm
+# Move model import after db is initialized to avoid errors
+from flaskBlog.models import User, Post
 
 posts =[
     {
@@ -59,10 +52,3 @@ def login():
         else:
             flash('Incorrect Login information', 'danger')
     return render_template('login.html', title='Login', form=form)
-
-
-
-if __name__ == '__main__':
-    app.run(debug=True, port=7080)
-    
-    
