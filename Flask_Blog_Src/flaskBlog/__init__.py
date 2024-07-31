@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 
 
@@ -9,5 +10,6 @@ CORS(app)
 app.config['SECRET_KEY'] = 'dgwrF*5USdWAGr4EqFPqYK'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
 
 from flaskBlog import routes
